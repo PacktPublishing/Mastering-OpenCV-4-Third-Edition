@@ -25,21 +25,35 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 <span data-feather="home"></span>
-                                Dashboard <span class="sr-only">(current)</span>
+                                Sample 1. Basic loading image <span class="sr-only">(current)</span>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sample 2. Basic Webcam reading</a>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Sample 1</h1>
-                    <p id="status"></p>
-                    <img id="imageSrc" alt="No Image" class="small">
-                    <canvas id="canvasOutput" class="small" height="300px"></canvas>
-                    <input type="file" id="fileInput" name="file" accept="image/*">
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                <div class="row">
+                    <div class="col"><h1>Sample 1. Basic loading image</h1></div>                        
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p id="status"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="imageSrc" alt="No Image" class="small">
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" name="file" accept="image/*">
+                
 
             </main>
         </div>
@@ -63,6 +77,7 @@
         
         imgElement.onload = function() {
             let mat = cv.imread(imgElement);
+            cv.cvtColor(mat, mat, cv.COLOR_BGR2GRAY);
             cv.imshow('canvasOutput', mat);
             mat.delete();
         };
