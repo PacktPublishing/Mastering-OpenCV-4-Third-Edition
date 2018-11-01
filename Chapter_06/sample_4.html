@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <title>OpenCV Computer vision on Web. Packt Publishing.</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Computer vision on Web.</a>
+        <h1 class="col-md-10">Sample 4. Optical Flow</h1>
+    </nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul id="menu" class="nav flex-column">
+                        
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="status" class="alert alert-primary" role="alert"><img src="img/ajax-loader.gif" /> Loading OpenCV...</div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Start</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <video id="videoInput" width="320" height="240"></video>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                    </div>
+                </div>
+                
+            </main>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <!-- OPENCV -->
+    <script async="" src="js/opencv.js" type="text/javascript" onload="onOpenCvReady();" onerror="onOpenCvError();"></script>
+
+    <script type="text/javascript">
+        let video = document.getElementById("videoInput"); // video is the id of video tag
+        let dst;
+        let cap;
+        let oldGray;
+        let p0;
+        let mask;
+        // parameters for ShiTomasi corner detection
+        let [maxCorners, qualityLevel, minDistance, blockSize] = [30, 0.3, 7, 7];
+        
+        // parameters for lucas kanade optical flow
+        let winSize;
+        let maxLevel = 2;
+        let criteria;
+
+        // create some random colors
+        let color = [];
+        
+        function init_cv(){
+            src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+            dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+            cap = new cv.VideoCapture(video);
+
+            // Init the required variables for optical flow
+            winSize = new cv.Size(15, 15);
+            maxLevel = 2;
+            criteria = new cv.TermCriteria(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03);
+            for (let i = 0; i < maxCorners; i++) {
+                color.push(new cv.Scalar(parseInt(Math.random()*255), parseInt(Math.random()*255),
+                                        parseInt(Math.random()*255), 255));
+            }
+
+
+            // take first frame and find corners in it
+            let oldFrame = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+            cap.read(oldFrame);
+            oldGray = new cv.Mat();
+            cv.cvtColor(oldFrame, oldGray, cv.COLOR_RGB2GRAY);
+            p0 = new cv.Mat();
+            let none = new cv.Mat();
+            cv.goodFeaturesToTrack(oldGray, p0, maxCorners, qualityLevel, minDistance, none, blockSize);
+
+            // Create a mask image for drawing purposes
+            let zeroEle = new cv.Scalar(0, 0, 0, 255);
+            mask = new cv.Mat(oldFrame.rows, oldFrame.cols, oldFrame.type(), zeroEle);
+
+        }
+
+        const FPS = 30;
+        function processVideo() {
+            try {
+                let begin = Date.now();
+
+                let frame = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+                let frameGray = new cv.Mat();
+                let p1 = new cv.Mat();
+                let st = new cv.Mat();
+                let err = new cv.Mat();
+
+                // start processing.
+                cap.read(frame);
+                cv.cvtColor(frame, frameGray, cv.COLOR_RGBA2GRAY);
+
+                // calculate optical flow
+                cv.calcOpticalFlowPyrLK(oldGray, frameGray, p0, p1, st, err, winSize, maxLevel, criteria);
+
+
+                // select good points
+                let goodNew = [];
+                let goodOld = [];
+                for (let i = 0; i < st.rows; i++) {
+                    if (st.data[i] === 1) {
+                        goodNew.push(new cv.Point(p1.data32F[i*2], p1.data32F[i*2+1]));
+                        goodOld.push(new cv.Point(p0.data32F[i*2], p0.data32F[i*2+1]));
+                    }
+                }
+
+                // draw the tracks
+                for (let i = 0; i < goodNew.length; i++) {
+                    cv.line(mask, goodNew[i], goodOld[i], color[i], 2);
+                    cv.circle(frame, goodNew[i], 5, color[i], -1);
+                }
+                cv.add(frame, mask, frame);
+
+                cv.imshow('canvasOutput', frame);
+
+                // now update the previous frame and previous points
+                frameGray.copyTo(oldGray);
+                p0.delete(); p0 = null;
+                p0 = new cv.Mat(goodNew.length, 1, cv.CV_32FC2);
+                for (let i = 0; i < goodNew.length; i++) {
+                    p0.data32F[i*2] = goodNew[i].x;
+                    p0.data32F[i*2+1] = goodNew[i].y;
+                }
+
+                // schedule the next one.
+                let delay = 1000/FPS - (Date.now() - begin);
+                setTimeout(processVideo, delay);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        
+
+        function start_cv(){
+            init_cv();
+            // schedule the first one.
+            setTimeout(processVideo, 0);
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(err) {
+                console.log("An error occurred! " + err);
+            });
+        
+        function onOpenCvReady() { // eslint-disable-line no-unused-vars
+            document.getElementById('status').innerHTML = '<b>OpenCV.js is ready</b>.';
+            $("#cv_start").show();
+            $("#cv_start").click(start_cv);
+        }
+        
+        function onOpenCvError() { // eslint-disable-line no-unused-vars
+            let element = document.getElementById('status');
+            element.setAttribute('class', 'err');
+            element.innerHTML = 'Failed to load opencv.js';
+        }
+
+        </script>
+  </body>
+</html>

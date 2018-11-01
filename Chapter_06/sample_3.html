@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <title>OpenCV Computer vision on Web. Packt Publishing.</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Computer vision on Web.</a>
+        <h1 class="col-md-10">Sample 3. Basic image processing</h1>
+    </nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul id="menu" class="nav flex-column">
+                        
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                
+                <div class="row">
+                    <div class="col">
+                        <div id="status" class="alert alert-primary" role="alert"><img src="img/ajax-loader.gif" /> Loading OpenCV...</div>
+                    </div>
+                </div>
+                <div id="main_process" class="row">
+                    <div class="col">
+                        <span class="step">1</span>
+                        <input type="file" id="fileInput" name="file" accept="image/*">
+                        <br><br>
+                        <span class="step">2</span>
+                        <select class="form-control" id="filter">
+                            <option value="0">Choose a filter</option>
+                            <option value="1">Threshold</option>
+                            <option value="2">Gaussian Blur</option>
+                            <option value="3">Canny</option>
+                            <option value="4">Equalize Histogram</option>
+                        </select>
+                        <br>
+                        
+                        <div id="step3_o1" class="step_blocks hide">
+                                <span class="step">3</span>
+                                Threshold: <span id="value_sel">100</span>
+                                <input type="range" class="custom-range" min="0" max="255" value="100" id="value">        
+                        </div>
+
+                        <div id="step3_o2" class="step_blocks hide">
+                                <span class="step">3</span>
+                                Kernel Filter size: <span id="value_o2_sel">3x3</span>
+                                <input type="range" class="custom-range" min="1" max="55" value="3" step="2" id="value_o2">        
+                        </div>
+
+                        <div id="step3_o3" class="step_blocks hide">
+                                <span class="step">3</span>
+                                Threshold 1: <span id="value_o3_1_sel">100</span>
+                                <input type="range" class="custom-range" min="0" max="255" value="100" id="value_o3_1">
+                                Threshold 2: <span id="value_o3_2_sel">150</span>
+                                <input type="range" class="custom-range" min="0" max="255" value="150" id="value_o3_2">
+                                Aperture size: <span id="value_o3_sel">3</span>
+                                <input type="range" class="custom-range" min="3" max="7" value="3" step="2" id="value_o3">        
+                        </div>
+                        
+
+                        <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Process image</a>
+                    </div>
+                    <div class="col">
+                        Input image<br>
+                        <img id="imageSrc" class="small" alt="no image">
+                    </div>
+                    <div class="col">
+                        Result image<br>
+                        <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                    </div>
+                
+                </div>
+                
+                
+                
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <!-- OPENCV -->
+    <script async="" src="js/opencv.js" type="text/javascript" onload="onOpenCvReady();" onerror="onOpenCvError();"></script>
+
+    <script type="text/javascript">
+        let imgElement = document.getElementById('imageSrc');
+        let inputElement = document.getElementById('fileInput');
+        inputElement.addEventListener('change', (e) => {
+            imgElement.src = URL.createObjectURL(e.target.files[0]);
+        }, false);
+        
+        function process() {
+            let mat = cv.imread(imgElement);
+            let mat_result= new cv.Mat();
+            let filter= parseInt($("#filter").val());
+            
+            switch(filter) {
+                case 1:{
+                    let value= parseInt($("#value").val());
+                    cv.threshold(mat, mat_result, value, 255, cv.THRESH_BINARY);
+                    break;}
+                case 2:{
+                    let value= parseInt($("#value_o2").val());
+                    let ksize = new cv.Size(value, value);
+                    // You can try more different parameters
+                    cv.GaussianBlur(mat, mat_result, ksize, 0, 0, cv.BORDER_DEFAULT);
+                    break;}
+                case 3:{
+                    let value_t1= parseInt($("#value_o3_1").val());
+                    let value_t2= parseInt($("#value_o3_2").val());
+                    let value_kernel= parseInt($("#value_o3").val());
+                    cv.Canny(mat, mat_result, value_t1,value_t2, value_kernel);
+                    break;}
+                case 4:{
+                    cv.cvtColor(mat, mat, cv.COLOR_BGR2GRAY);
+                    cv.equalizeHist(mat, mat_result);
+                    break;
+                }
+            }
+            cv.imshow('canvasOutput', mat_result);
+            mat.delete();
+            mat_result.delete();
+        };
+        
+        
+
+        function onOpenCvReady() { // eslint-disable-line no-unused-vars
+            document.getElementById('status').innerHTML = '<b>OpenCV.js is ready</b>.' +
+                'You can upload an image.';
+            $("#cv_start").show();
+            $("#main_process").show();
+            $("#cv_start").click(process);
+            $("#filter").change(function(){
+                let filter= parseInt($("#filter").val());
+                $(".step_blocks").hide();
+                $("#step3_o"+filter).show();
+            });
+            $("#value").change(function(){
+                $("#value_sel").html($(this).val());
+                process();
+            })
+            $("#value_o2").change(function(){
+                $("#value_o2_sel").html($(this).val()+"x"+$(this).val());
+                process();
+            })
+            $("#value_o3_1").change(function(){
+                $("#value_o3_1_sel").html($(this).val());
+                process();
+            })
+            $("#value_o3_2").change(function(){
+                $("#value_o3_2_sel").html($(this).val());
+                process();
+            })
+            $("#value_o3").change(function(){
+                $("#value_o3_sel").html($(this).val());
+                process();
+            })
+            //imgElement.onload = process;
+        }
+        
+        function onOpenCvError() { // eslint-disable-line no-unused-vars
+            let element = document.getElementById('status');
+            element.setAttribute('class', 'err');
+            element.innerHTML = 'Failed to load opencv.js';
+        }
+        </script>
+  </body>
+</html>

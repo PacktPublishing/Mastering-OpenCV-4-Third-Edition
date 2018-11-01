@@ -100,3 +100,37 @@ body {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
+
+  .navbar h1{
+    margin: 0;
+    color: #ffff;
+    font-size: 26px;
+  }
+
+  .hide{
+    display: none;
+  }
+
+  .step{
+    background: #ff6b01;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+  }
+  #filter{
+    width: 90%;
+  }
+
+  img.small,
+  canvas.small{
+    min-height: 300px;
+    min-width: 300px;
+    background-color: #999;
+  }

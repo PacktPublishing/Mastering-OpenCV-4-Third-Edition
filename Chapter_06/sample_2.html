@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    
+    <title>OpenCV Computer vision on Web. Packt Publishing.</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Computer vision on Web.</a>
+        <h1 class="col-md-10">Sample 2. Basic webcam reading</h1>
+    </nav>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul id="menu" class="nav flex-column">
+                        
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+                
+                <div class="row">
+                    <div class="col">
+                        <div id="status" class="alert alert-primary" role="alert"><img src="img/ajax-loader.gif" /> Loading OpenCV...</div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Start</a>
+                <div class="row">
+                    <div class="col">
+                        <video id="videoInput" width="320" height="240"></video>
+                    </div>
+                    <div class="col">
+                        <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                    </div>
+                </div>
+                
+            </main>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <!-- OPENCV -->
+    <script async="" src="js/opencv.js" type="text/javascript" onload="onOpenCvReady();" onerror="onOpenCvError();"></script>
+
+    <script type="text/javascript">
+        let video = document.getElementById("videoInput"); // video is the id of video tag
+        let src;
+        let dst;
+        let cap;
+
+        const FPS = 30;
+        function processVideo() {
+            try {
+                let begin = Date.now();
+                // start processing.
+                cap.read(src);
+                cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);
+                cv.imshow('canvasOutput', dst);
+                // schedule the next one.
+                let delay = 1000/FPS - (Date.now() - begin);
+                setTimeout(processVideo, delay);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        function start_cv(){
+            // Init required variables
+            src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+            dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+            cap = new cv.VideoCapture(video);
+            // start to process
+            processVideo();
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(err) {
+                console.log("An error occurred! " + err);
+            });
+        
+        function onOpenCvReady() { // eslint-disable-line no-unused-vars
+            document.getElementById('status').innerHTML = '<b>OpenCV.js is ready</b>.';
+            $("#cv_start").show();
+            $("#cv_start").click(start_cv);
+        }
+        
+        function onOpenCvError() { // eslint-disable-line no-unused-vars
+            let element = document.getElementById('status');
+            element.setAttribute('class', 'err');
+            element.innerHTML = 'Failed to load opencv.js';
+        }
+
+        </script>
+  </body>
+</html>
