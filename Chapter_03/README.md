@@ -26,7 +26,7 @@ $ make
 
 ## Running instructions
 ```
-$ ./ch3-face #TODO
+$ ./ch3_face -c=<opencv4 dir>/data/haarcascades/haarcascade_frontalface_default.xml -f=lbfmodel.yaml -v="<300vw dataset dir>/001/"
 ```
 
 ## Author
