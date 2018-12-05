@@ -16,3 +16,8 @@ TODO
 
 ## Running instruction
 TODO
+
+## Author
+Roy Shilkrot <br/>
+roy.shil@gmail.com <br/>
+http://www.morethantechnical.com
