@@ -9,6 +9,10 @@ We will see how to apply the facemark detector to finding the direction of the f
 * OpenCV v4 (compiled with the face contrib module)
 * Boost v1.66+
 
+A detector model, downloadable from: https://raw.githubusercontent.com/kurnianggoro/GSOC2017/master/data/lbfmodel.yaml
+
+Input video with facemark annotations, such as in the 300-VW dataset: https://ibug.doc.ic.ac.uk/resources/300-VW/
+
 ## Building instructions
 Follow the instructions on https://github.com/opencv/opencv_contrib to build OpenCV with the contrib modules.
 You may only include the following contrib modules: `face`, `xfeatures2d`, `photo`
@@ -21,7 +25,9 @@ $ make
 ```
 
 ## Running instructions
-
+```
+$ ./ch3-face #TODO
+```
 
 ## Author
 Roy Shilkrot <br/>
