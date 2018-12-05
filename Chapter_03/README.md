@@ -10,10 +10,18 @@ We will see how to apply the facemark detector to finding the direction of the f
 * Boost v1.66+
 
 ## Building instructions
-TODO
+Follow the instructions on https://github.com/opencv/opencv_contrib to build OpenCV with the contrib modules.
+You may only include the following contrib modules: `face`, `xfeatures2d`, `photo`
+
+Building the project:
+```
+$ mkdir build && cd build
+$ cmake .. -DOpenCV_DIR=<opencv4 dir>/build
+$ make
+```
 
 ## Running instructions
-TODO
+
 
 ## Author
 Roy Shilkrot <br/>
