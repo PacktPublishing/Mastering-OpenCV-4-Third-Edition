@@ -7,18 +7,64 @@ Later we will also densify the point cloud, add many more points to it to make i
 
 ## Requirements
 * OpenCV 4 (compiled with the  sfm contrib module)
-* Eigen v3.3+ (required by the sfm module)
+* Eigen v3.3.5+ (required by the sfm module and Ceres)
 * Ceres solver v2+ (required by the sfm module)
 * CMake 3.12+
 * Boost v1.66+
 * OpenMVS
 * CGAL v4.12+ (required by OpenMVS)
+* VCG (required by OpenMVS)
 
 ## Building instructions
-TODO
+
+### Building or installing third-party libraries
+Follow the instructions on https://github.com/opencv/opencv_contrib to build OpenCV with the contrib modules.
+You may only include the following contrib modules: `sfm`, `viz`
+
+Build OpenMVS following these instructions: https://github.com/cdcseacave/openMVS/wiki/Building.
+These also include the installation instructions for Ceres, Boost, Eigen and CGAL.
+
+Example for building OpenMVS: (OpenMVS already has a `build` dir, from which CMake should be called)
+```
+$ cd <openMVS dir>/build
+$ cmake .. -DOpenCV_DIR=<opencv4 dir>/build -DCGAL_ROOT=<cgal4 dir>/lib/cmake/ -DVCG_DIR=<vcg dir> -DCMAKE_BUILD_TYPE=Release
+$ make
+```
+
+### Building project
+```
+$ mkdir build && cd build
+$ cmake .. -DOpenCV_DIR=<opencv dir>/build -DOpenMVS_DIR=<openMVS dir>/build
+$ make
+```
 
 ## Running instructions
-TODO
+```
+Usage: ch2_sfm [params] dir 
+
+	-?, -h, --help (value:true)
+		help message
+	--cloud
+		Save reconstruction to a point cloud file (PLY, XYZ and OBJ). Provide filename
+	--debug (value:false)
+		Save debug visualizations to files?
+	--mrate (value:0.5)
+		Survival rate of matches to consider image pair success
+	--mvs
+		Save reconstruction to an .mvs file. Provide filename
+	--viz (value:false)
+		Visualize the sparse point cloud reconstruction?
+
+	dir (value:.)
+		directory with image files for reconstruction
+```
+
+Example:
+```
+$ ./ch2_sfm --viz=true --mvs=out.mvs ../crazyhorse/
+$ <openMVS dir>/build/bin/DensifyPointCloud -i out.mvs
+$ <openMVS dir>/build/bin/Viewer -i out_dense.mvs
+```
 
 ## Author
 Roy Shilkrot <br/>
