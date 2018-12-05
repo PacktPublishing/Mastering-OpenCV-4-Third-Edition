@@ -16,6 +16,6 @@ TODO
 TODO
 
 ## Author
-Roy Shilkrot 
-roy.shil@gmail.com 
+Roy Shilkrot <br/>
+roy.shil@gmail.com <br/>
 http://www.morethantechnical.com
