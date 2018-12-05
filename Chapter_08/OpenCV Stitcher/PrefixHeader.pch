@@ -1,0 +1,17 @@
+//
+//  PrefixHeader.pch
+//  OpenCV Stitcher
+//
+//  Created by roy_shilkrot on 10/25/18.
+//  Copyright © 2018 roy_shilkrot. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#ifdef __cplusplus
+#import <opencv2/stitching.hpp>
+#import <opencv2/imgcodecs/ios.h>
+#endif
+
+#endif /* PrefixHeader_pch */

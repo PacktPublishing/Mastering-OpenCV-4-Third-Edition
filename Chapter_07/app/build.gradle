@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.packt.masteringopencv4.opencvarucoar"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                arguments "-DOpenCV_DIR=../" + opencvsdk + "/sdk/native/jni"
+            }
+        }
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'armeabi-v7a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation project(':opencv')
+}
+
+def jmerepo = 'org.jmonkeyengine'
+def jmeversion = '[3.1,)'
+
+dependencies {
+    compile jmerepo + ':jme3-android:' + jmeversion
+    compile jmerepo + ':jme3-android-native:' + jmeversion
+    compile jmerepo + ':jme3-core:' + jmeversion
+}
+
+dependencies {
+    implementation 'com.android.support:support-v4:27.+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}

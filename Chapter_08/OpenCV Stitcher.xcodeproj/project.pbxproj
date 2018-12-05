@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		367D361E37B28F4632A674E3 /* Pods_OpenCV_Stitcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAD7E235342802E410B1843 /* Pods_OpenCV_Stitcher.framework */; };
+		D39C687B217FBA04000C4438 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39C687A217FBA04000C4438 /* AppDelegate.swift */; };
+		D39C687D217FBA04000C4438 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39C687C217FBA04000C4438 /* ViewController.swift */; };
+		D39C6880217FBA04000C4438 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39C687E217FBA04000C4438 /* Main.storyboard */; };
+		D39C6882217FBA05000C4438 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D39C6881217FBA05000C4438 /* Assets.xcassets */; };
+		D39C6885217FBA05000C4438 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39C6883217FBA05000C4438 /* LaunchScreen.storyboard */; };
+		D3DBE471218271AF00E2FD43 /* StitchingWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3DBE470218271AF00E2FD43 /* StitchingWrapper.mm */; };
+		D3DBE4BB218A35BD00E2FD43 /* PanoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DBE4BA218A35BD00E2FD43 /* PanoViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5896B881BCD11D706BB04E21 /* Pods-OpenCV Stitcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenCV Stitcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenCV Stitcher/Pods-OpenCV Stitcher.release.xcconfig"; sourceTree = "<group>"; };
+		6CC4B3DC9C084CB0D2AB2A45 /* Pods-OpenCV Stitcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenCV Stitcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenCV Stitcher/Pods-OpenCV Stitcher.debug.xcconfig"; sourceTree = "<group>"; };
+		CEAD7E235342802E410B1843 /* Pods_OpenCV_Stitcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenCV_Stitcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D39C6877217FBA04000C4438 /* OpenCV Stitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OpenCV Stitcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D39C687A217FBA04000C4438 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D39C687C217FBA04000C4438 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D39C687F217FBA04000C4438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D39C6881217FBA05000C4438 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D39C6884217FBA05000C4438 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D39C6886217FBA05000C4438 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3DBE46A21826F8200E2FD43 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D3DBE46E218271AF00E2FD43 /* OpenCV Stitcher-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenCV Stitcher-Bridging-Header.h"; sourceTree = "<group>"; };
+		D3DBE46F218271AF00E2FD43 /* StitchingWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StitchingWrapper.h; sourceTree = "<group>"; };
+		D3DBE470218271AF00E2FD43 /* StitchingWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = StitchingWrapper.mm; sourceTree = "<group>"; };
+		D3DBE4BA218A35BD00E2FD43 /* PanoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanoViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D39C6874217FBA04000C4438 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				367D361E37B28F4632A674E3 /* Pods_OpenCV_Stitcher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A82E5047165387C875E4E321 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6CC4B3DC9C084CB0D2AB2A45 /* Pods-OpenCV Stitcher.debug.xcconfig */,
+				5896B881BCD11D706BB04E21 /* Pods-OpenCV Stitcher.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D39C686E217FBA04000C4438 = {
+			isa = PBXGroup;
+			children = (
+				D39C6879217FBA04000C4438 /* OpenCV Stitcher */,
+				D39C6878217FBA04000C4438 /* Products */,
+				A82E5047165387C875E4E321 /* Pods */,
+				D7CF50DF109F86BAD7F63EF4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D39C6878217FBA04000C4438 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D39C6877217FBA04000C4438 /* OpenCV Stitcher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D39C6879217FBA04000C4438 /* OpenCV Stitcher */ = {
+			isa = PBXGroup;
+			children = (
+				D39C687A217FBA04000C4438 /* AppDelegate.swift */,
+				D39C687C217FBA04000C4438 /* ViewController.swift */,
+				D39C687E217FBA04000C4438 /* Main.storyboard */,
+				D39C6881217FBA05000C4438 /* Assets.xcassets */,
+				D39C6883217FBA05000C4438 /* LaunchScreen.storyboard */,
+				D39C6886217FBA05000C4438 /* Info.plist */,
+				D3DBE46A21826F8200E2FD43 /* PrefixHeader.pch */,
+				D3DBE46F218271AF00E2FD43 /* StitchingWrapper.h */,
+				D3DBE470218271AF00E2FD43 /* StitchingWrapper.mm */,
+				D3DBE46E218271AF00E2FD43 /* OpenCV Stitcher-Bridging-Header.h */,
+				D3DBE4BA218A35BD00E2FD43 /* PanoViewController.swift */,
+			);
+			path = "OpenCV Stitcher";
+			sourceTree = "<group>";
+		};
+		D7CF50DF109F86BAD7F63EF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEAD7E235342802E410B1843 /* Pods_OpenCV_Stitcher.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D39C6876217FBA04000C4438 /* OpenCV Stitcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D39C6889217FBA05000C4438 /* Build configuration list for PBXNativeTarget "OpenCV Stitcher" */;
+			buildPhases = (
+				7FCF8121842F01327B5805B9 /* [CP] Check Pods Manifest.lock */,
+				D39C6873217FBA04000C4438 /* Sources */,
+				D39C6874217FBA04000C4438 /* Frameworks */,
+				D39C6875217FBA04000C4438 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OpenCV Stitcher";
+			productName = "OpenCV Stitcher";
+			productReference = D39C6877217FBA04000C4438 /* OpenCV Stitcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D39C686F217FBA04000C4438 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					previewView,
+				);
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = roy_shilkrot;
+				TargetAttributes = {
+					D39C6876217FBA04000C4438 = {
+						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
+					};
+				};
+			};
+			buildConfigurationList = D39C6872217FBA04000C4438 /* Build configuration list for PBXProject "OpenCV Stitcher" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D39C686E217FBA04000C4438;
+			productRefGroup = D39C6878217FBA04000C4438 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D39C6876217FBA04000C4438 /* OpenCV Stitcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D39C6875217FBA04000C4438 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D39C6885217FBA05000C4438 /* LaunchScreen.storyboard in Resources */,
+				D39C6882217FBA05000C4438 /* Assets.xcassets in Resources */,
+				D39C6880217FBA04000C4438 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FCF8121842F01327B5805B9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenCV Stitcher-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D39C6873217FBA04000C4438 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3DBE4BB218A35BD00E2FD43 /* PanoViewController.swift in Sources */,
+				D3DBE471218271AF00E2FD43 /* StitchingWrapper.mm in Sources */,
+				D39C687D217FBA04000C4438 /* ViewController.swift in Sources */,
+				D39C687B217FBA04000C4438 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D39C687E217FBA04000C4438 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D39C687F217FBA04000C4438 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D39C6883217FBA05000C4438 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D39C6884217FBA05000C4438 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D39C6887217FBA05000C4438 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D39C6888217FBA05000C4438 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D39C688A217FBA05000C4438 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CC4B3DC9C084CB0D2AB2A45 /* Pods-OpenCV Stitcher.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HQF5C68PQL;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
+				INFOPLIST_FILE = "OpenCV Stitcher/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.packt.mastringopencv.OpenCV-Stitcher";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCV Stitcher/OpenCV Stitcher-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D39C688B217FBA05000C4438 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5896B881BCD11D706BB04E21 /* Pods-OpenCV Stitcher.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HQF5C68PQL;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
+				INFOPLIST_FILE = "OpenCV Stitcher/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.packt.mastringopencv.OpenCV-Stitcher";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCV Stitcher/OpenCV Stitcher-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D39C6872217FBA04000C4438 /* Build configuration list for PBXProject "OpenCV Stitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D39C6887217FBA05000C4438 /* Debug */,
+				D39C6888217FBA05000C4438 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D39C6889217FBA05000C4438 /* Build configuration list for PBXNativeTarget "OpenCV Stitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D39C688A217FBA05000C4438 /* Debug */,
+				D39C688B217FBA05000C4438 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D39C686F217FBA04000C4438 /* Project object */;
+}

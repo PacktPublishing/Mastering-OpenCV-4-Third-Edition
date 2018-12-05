@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OpenCV ArUco AR</string>
+
+    <string name="title_activity_calibration">CalibrationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
