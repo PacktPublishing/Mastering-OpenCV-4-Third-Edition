@@ -6,12 +6,12 @@ set(CMAKE_BUILD_TYPE Release)
 
 find_package(Ceres QUIET)
 
-set(OpenCV_DIR "../opencv/build")
+set(OpenCV_DIR "" CACHE PATH "Path to OpenCV build directory")
 find_package(OpenCV 4 REQUIRED core calib3d features2d sfm viz)
 
 find_package(Eigen3 REQUIRED)
 
-set(OpenMVS_DIR "../openMVS/build")
+set(OpenMVS_DIR "" CACHE PATH "Path to OpenMVS build directory")
 find_package(OpenMVS REQUIRED)
 find_package(CGAL 4 REQUIRED)
 find_package(Boost REQUIRED filesystem graph)
