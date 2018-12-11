@@ -9,11 +9,29 @@ We will discuss the areas in computer vision that OpenCV covers, ways to select 
 * Jupyter notebook
 * OpenCV v4 with Python bindings installed
 
+The most convenient way to get started is using Anaconda (https://www.anaconda.com/).
+
+To initialize a new conda environment with OpenCV installed:
+
+    $ conda create --name opencv_env
+    $ conda activate opencv_env
+    $ conda install opencv
+    
+Jupyter is automatically installed.
+
+An alternative process: https://jupyter.readthedocs.io/en/latest/install.html
+
 ## Building instructions
-TODO
+
+There are no particular build instructions.
 
 ## Running instructions
-TODO
+
+To run, navigate to this directory and run:
+
+    $ jupyter notebook
+
+And access the `.ipynb` file to start the notebook.
 
 ## Author
 Roy Shilkrot <br/>

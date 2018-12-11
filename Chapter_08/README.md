@@ -12,10 +12,16 @@ In this chapter we will implement a modest panoramic image stitching application
 * OpenCV v4.0 installed via CocoaPods
 
 ## Building instructions
-TODO
+
+To initialize the CocoaPods dependencies, run:
+    
+    $ pod install
+    
+Then open the XCode Workspace (not project), and build as usual in XCode.
 
 ## Running instruction
-TODO
+
+Run as a regular iOS project.
 
 ## Author
 Roy Shilkrot <br/>

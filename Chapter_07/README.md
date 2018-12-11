@@ -16,7 +16,7 @@ After installing Android Studio, simply open the android project in this directo
 
 To complete the build, you must point the project configuration to find the OpenCV Android SDK you obtained earlier.
 
-In the `gradle.settings` file, change the following line to match your directory setup:
+In the `gradle.settings` file, change the following line to match your directory setup: (make sure to use a relative path)
 
     opencvsdk=../../opencv-android-sdk-with-contrib
   
