@@ -11,10 +11,18 @@ However first we will begin with simply calibrating our Android device's camera 
 * Android device running Android OS v6.0+
 
 ## Building instructions
-TODO
+This project must be built with the Android Studio IDE.
+After installing Android Studio, simply open the android project in this directory.
+
+To complete the build, you must point the project configuration to find the OpenCV Android SDK you obtained earlier.
+
+In the `gradle.settings` file, change the following line to match your directory setup:
+
+    opencvsdk=../../opencv-android-sdk-with-contrib
+  
 
 ## Running instructions
-TODO
+Run the project as a normal Android app from the Android Studio.
 
 ## Author
 Roy Shilkrot <br/>

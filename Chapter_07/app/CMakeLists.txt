@@ -45,5 +45,4 @@ target_link_libraries( # Specifies the target library.
                        # included in the NDK.
                        ${log-lib} )
 
-target_link_libraries(native-lib ${OpenCV_LIBRARIES}
-        /Users/roy_shilkrot/Documents/Packt-Mastering-OpenCV4-ed3/src/opencv-android-sdk-with-contrib/sdk/native/staticlibs/armeabi-v7a/libopencv_aruco.a)
+target_link_libraries(native-lib ${OpenCV_LIBRARIES})
