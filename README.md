@@ -15,3 +15,5 @@ Authors: Dr. Roy Shilkrot and David Millán Escrivá
 * Chapter 9: Finding the Best OpenCV Algorithm for the Job
 
 Each chapter folder contains individual instruction on building and running the code.
+
+The book contains an extra Chapter 10: Avoiding Common Pitfalls in OpenCV, without code.
