@@ -1,6 +1,8 @@
 # Mastering-OpenCV-4-Third-Edition
 Mastering OpenCV 4, Third Edition, published by Packt publishing
 
+Authors: Dr. Roy Shilkrot and David Millán Escrivá
+
 ## List of Chapters
 * Chapter 1: Cartoonifier and Skin Color Analysis on the RaspberryPi
 * Chapter 2: Explore Structure from Motion with the SfM Module
