@@ -50,7 +50,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 
 * Hands-On GPU-Accelerated Computer Vision with OpenCV and CUDA [[Packt]](https://www.packtpub.com/application-development/hands-gpu-accelerated-computer-vision-opencv-and-cuda?utm_source=github&utm_medium=repository&utm_campaign=9781789348293) [[Amazon]](https://www.amazon.com/dp/1789348293)
 
-## Get to Know the Author
+## Get to Know the Authors
 **Roy Shilkrot**
 is an assistant professor of computer science at Stony Brook University, where he leads the Human Interaction group. Dr. Shilkrot's research is in computer vision, human-computer interfaces, and the cross-over between these two domains, funded by US federal, New York State, and industry grants. Dr. Shilkrot graduated from the Massachusetts Institute of Technology (MIT) with a PhD, and has authored more than 25 peer-reviewed papers published at premier computer science conferences, such as CHI and SIGGRAPH, as well as in leading academic journals such as ACM Transaction on Graphics (TOG) and ACM Transactions on Computer-Human Interaction (ToCHI). Dr. Shilkrot is also a co-inventor of several patented technologies, a co-author of a number of books, serves on the scientific advisory board of numerous start-up companies, and has over 10 years of experience as an engineer and an entrepreneur.
 
