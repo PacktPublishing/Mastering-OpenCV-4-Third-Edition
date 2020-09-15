@@ -103,7 +103,7 @@ vector<CharSegment> OCR::segment(Plate plate) {
   vector<CharSegment> output;
   // Threshold input image
   Mat img_threshold;
-  threshold(input, img_threshold, 60, 255, CV_THRESH_BINARY_INV);
+  threshold(input, img_threshold, 60, 255, cv::THRESH_BINARY_INV);
   if (DEBUG) imshow("Threshold plate", img_threshold);
   Mat img_contours;
   img_threshold.copyTo(img_contours);
@@ -111,8 +111,8 @@ vector<CharSegment> OCR::segment(Plate plate) {
   vector<vector<Point>> contours;
   findContours(img_contours,
                contours,               // a vector of contours
-               CV_RETR_EXTERNAL,       // retrieve the external contours
-               CV_CHAIN_APPROX_NONE);  // all pixels of each contours
+               cv::RETR_EXTERNAL,       // retrieve the external contours
+               cv::CHAIN_APPROX_NONE);  // all pixels of each contours
 
   // Draw blue contours on a white image
   cv::Mat result;
@@ -245,7 +245,7 @@ void OCR::drawVisualFeatures(Mat character, Mat hhist, Mat vhist, Mat lowData) {
 
   imshow("Visual Features", img);
 
-  cvWaitKey(0);
+  cv::waitKey(0);
 }
 
 Mat OCR::features(Mat in, int sizeData) {

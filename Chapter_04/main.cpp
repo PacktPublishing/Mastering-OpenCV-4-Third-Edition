@@ -134,11 +134,11 @@ int main(int argc, char **argv)
         cout << "License plate number: " << licensePlate << "\n";
         cout << "================================================\n";
         rectangle(input_image, plate.position, Scalar(0, 0, 200));
-        putText(input_image, licensePlate, Point(plate.position.x, plate.position.y), CV_FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 200), 2);
+        putText(input_image, licensePlate, Point(plate.position.x, plate.position.y), cv::FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 200), 2);
         if (ocr.DEBUG)
         {
             imshow("Plate Detected seg", plate.plateImg);
-            cvWaitKey(0);
+            cv::waitKey(0);
         }
     }
     namedWindow("Plate Detected", WINDOW_NORMAL);
@@ -146,7 +146,7 @@ int main(int argc, char **argv)
     for (;;)
     {
         int c;
-        c = cvWaitKey(10);
+        c = cv::waitKey(10);
         if ((char)c == 27)
             break;
     }

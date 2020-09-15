@@ -1,7 +1,12 @@
 # Chapter 5: Face Recognition using Eigenfaces or Fisherfaces
 
-Note: You need OpenCV v2.4.1 or later (from June 2012), otherwise the FaceRecognizer will not compile or run.
+Note: You need OpenCV v4 or later, otherwise the FaceRecognizer will not compile or run.
 And you need atleast 3 Face & Eye detection XML files from OpenCV, as shown below.
+
+## Requirements
+
+- OpenCV 4+ (with components `core, highgui, face, dnn`)
+- Optional: Use Conan (https://conan.io/) to install OpenCV (e.g. `[build]$ conan install ..`)
 
 ## Building the project using CMake
 
@@ -13,7 +18,7 @@ And you need atleast 3 Face & Eye detection XML files from OpenCV, as shown belo
     cp $OpenCV_DIR/../data/haarcascades/haarcascade_eye.xml .
     cp $OpenCV_DIR/../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml .
     cmake -D OpenCV_DIR=$OpenCV_DIR ..
-    make 
+    cmake --build .
 
 ### MacOSX (Xcode)
     export OpenCV_DIR="~/OpenCV/build"
@@ -38,9 +43,9 @@ And you need atleast 3 Face & Eye detection XML files from OpenCV, as shown belo
     copy %OpenCV_DIR%\..\data\haarcascades\haarcascade_eye_tree_eyeglasses.xml .\Debug\
     copy %OpenCV_DIR%\..\data\haarcascades\haarcascade_eye_tree_eyeglasses.xml .\Release\
     cmake -G "Visual Studio 9 2008" -D OpenCV_DIR=%OpenCV_DIR% ..
-    start WebcamFaceRec.sln 
+    start WebcamFaceRec.sln
 
-    
+
 ## Running the project:
 
 Just execute `WebcamFaceRec`.

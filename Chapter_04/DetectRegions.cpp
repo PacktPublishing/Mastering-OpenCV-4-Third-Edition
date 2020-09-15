@@ -80,13 +80,13 @@ vector<Plate> DetectRegions::segment(Mat input)
 
     // threshold image
     Mat img_threshold;
-    threshold(img_sobel, img_threshold, 0, 255, CV_THRESH_OTSU + CV_THRESH_BINARY);
+    threshold(img_sobel, img_threshold, 0, 255, cv::THRESH_OTSU + cv::THRESH_BINARY);
     if (showSteps)
         imshow("Threshold", img_threshold);
 
     // Morphplogic operation close
     Mat element = getStructuringElement(MORPH_RECT, Size(17, 3));
-    morphologyEx(img_threshold, img_threshold, CV_MOP_CLOSE, element);
+    morphologyEx(img_threshold, img_threshold, cv::MORPH_CLOSE, element);
     if (showSteps)
         imshow("Close", img_threshold);
 
@@ -94,8 +94,8 @@ vector<Plate> DetectRegions::segment(Mat input)
     vector<vector<Point>> contours;
     findContours(img_threshold,
         contours, // a vector of contours
-        CV_RETR_EXTERNAL, // retrieve the external contours
-        CV_CHAIN_APPROX_NONE); // all pixels of each contours
+        cv::RETR_EXTERNAL, // retrieve the external contours
+        cv::CHAIN_APPROX_NONE); // all pixels of each contours
 
     // Start to iterate to each contour founded
     vector<vector<Point>>::iterator itc = contours.begin();
@@ -143,7 +143,7 @@ vector<Plate> DetectRegions::segment(Mat input)
         int NumSeeds = 10;
         Rect ccomp;
         int flags
-            = connectivity + (newMaskVal << 8) + CV_FLOODFILL_FIXED_RANGE + CV_FLOODFILL_MASK_ONLY;
+            = connectivity + (newMaskVal << 8) + cv::FLOODFILL_FIXED_RANGE + cv::FLOODFILL_MASK_ONLY;
         for (int j = 0; j < NumSeeds; j++) {
             Point seed;
             seed.x = rects[i].center.x + rand() % (int)minSize - (minSize / 2);
@@ -154,7 +154,7 @@ vector<Plate> DetectRegions::segment(Mat input)
         }
         if (showSteps)
             imshow("MASK", mask);
-        // cvWaitKey(0);
+        // cv::waitKey(0);
 
         // Check new floodfill mask match for a correct patch.
         // Get all points detected for get Minimal rotated Rect
@@ -183,7 +183,7 @@ vector<Plate> DetectRegions::segment(Mat input)
 
             // Create and rotate image
             Mat img_rotated;
-            warpAffine(input, img_rotated, rotmat, input.size(), CV_INTER_CUBIC);
+            warpAffine(input, img_rotated, rotmat, input.size(), cv::INTER_CUBIC);
 
             // Crop image
             Size rect_size = minRect.size;

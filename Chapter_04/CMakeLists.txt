@@ -11,7 +11,7 @@ if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 endif()
 
 # Requires OpenCV
-find_package(OpenCV 4.0.0 REQUIRED COMPONENTS core dnn)
+find_package(OpenCV 4.0.0 REQUIRED COMPONENTS core highgui ml flann dnn)
 message(STATUS "OpenCV version : ${OpenCV_VERSION}")
 
 include_directories(${OpenCV_INCLUDE_DIRS})

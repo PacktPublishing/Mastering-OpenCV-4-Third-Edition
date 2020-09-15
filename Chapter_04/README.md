@@ -5,7 +5,7 @@ You can use this code as a sample & guide to create your own custom ANPR or OCR 
 
 ## Requirements
 
-TODO
+- OpenCV 4+ (with components `core, highgui, ml, flann, dnn`)
 
 ## Building the project using CMake
 
@@ -14,7 +14,7 @@ TODO
     mkdir build
     cd build
     cmake -D OpenCV_DIR=$OpenCV_DIR ..
-    make 
+    cmake --build .
 
 ### MacOSX (Xcode)
     export OpenCV_DIR="~/OpenCV/build"
@@ -28,9 +28,9 @@ TODO
     mkdir build
     cd build
     cmake -G "Visual Studio 9 2008" -D OpenCV_DIR=%OpenCV_DIR% ..
-    start ANPR.sln 
+    start ANPR.sln
 
-    
+
 
 ## Running the project:
 

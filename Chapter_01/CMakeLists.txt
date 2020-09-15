@@ -1,17 +1,13 @@
-cmake_minimum_required (VERSION 3.0) 
+cmake_minimum_required(VERSION 3.0)
 
-PROJECT(Cartoonifier)
+project(Cartoonifier)
 
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
 # Requires OpenCV
-FIND_PACKAGE( OpenCV 4.0.0 REQUIRED )
+find_package(OpenCV 4.0.0 REQUIRED)
 
-SET(SRC
-    main.cpp
-    cartoon.cpp
-   # ImageUtils_0.7.cpp
-)
+set(SRC main.cpp cartoon.cpp)
 
-ADD_EXECUTABLE( ${PROJECT_NAME} ${SRC} )
-TARGET_LINK_LIBRARIES( ${PROJECT_NAME}  ${OpenCV_LIBS} )
+add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})

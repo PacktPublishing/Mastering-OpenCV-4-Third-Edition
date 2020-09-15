@@ -1,25 +1,24 @@
-cmake_minimum_required (VERSION 3.0) 
+cmake_minimum_required(VERSION 3.0)
 
-PROJECT(WebcamFaceRec)
+project(WebcamFaceRec)
 
-set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 11)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+  conan_basic_setup()
+endif()
 
 # Requires OpenCV v4.0 or later
-FIND_PACKAGE( OpenCV 4 REQUIRED )
+find_package(OpenCV 4 REQUIRED COMPONENTS core highgui dnn face)
 
-SET(SRC
-    main.cpp
-    detectObject.cpp
-    preprocessFace.cpp
-    recognition.cpp
-    #ImageUtils_0.7.cpp
-)
+include_directories(${OpenCV_INCLUDE_DIRS})
+link_directories(${OpenCV_LIB_DIR})
 
-ADD_EXECUTABLE( ${PROJECT_NAME} ${SRC} )
-TARGET_LINK_LIBRARIES( ${PROJECT_NAME}  ${CONAN_LIBS} )
+set(SRC main.cpp detectObject.cpp preprocessFace.cpp recognition.cpp)
 
-ADD_EXECUTABLE( dnn_face_detector resnet_ssd_face.cpp )
-TARGET_LINK_LIBRARIES( dnn_face_detector  ${CONAN_LIBS} )
+add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS} ${OpenCV_LIBS})
+
+add_executable(dnn_face_detector resnet_ssd_face.cpp)
+target_link_libraries(dnn_face_detector ${CONAN_LIBS} ${OpenCV_LIBS})
