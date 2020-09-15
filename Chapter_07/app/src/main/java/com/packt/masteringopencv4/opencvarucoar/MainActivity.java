@@ -46,8 +46,6 @@ public class MainActivity extends Activity implements CameraHandler {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        Log.i(LOGTAG, "getWindowManager().getDefaultDisplay().getRotation(): " + getWindowManager().getDefaultDisplay().getRotation());
-
         mImageHelper = new ImageHelper(this);
         mCameraHelper = new CameraHelper(this);
         mCameraHelper.setCameraListener(this);
@@ -105,8 +103,6 @@ public class MainActivity extends Activity implements CameraHandler {
         mImageHelper.YUV_420_888_toRGBAIntrinsics(image, mPreviewByteBufferRGBA);
         mJMEImageRGB.setData(mPreviewByteBufferRGBA);
         jmeApplication.setTexture(mJMEImageRGB);
-//        rotate180(mPreviewByteBufferRGBA.array(), h, w, CvType.CV_8UC4);
-//        timingLogger.addSplit("rotate rgb");
 
         //Gray image
         mPreviewByteBufferGray.rewind();
@@ -118,7 +114,6 @@ public class MainActivity extends Activity implements CameraHandler {
         class FindMarkerTask implements Runnable {
             @Override
             public void run() {
-//                rotate180(mPreviewByteBufferGray.array(), h, w, CvType.CV_8UC1);
                 float[] poseOutput = new float[16];
                 boolean markerFound = findMarker(mPreviewByteBufferGray.array(), h, w, poseOutput);
                 Log.v(LOGTAG, "marker found? " + markerFound + " pose " + Arrays.toString(poseOutput));

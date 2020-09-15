@@ -1,13 +1,13 @@
 /*****************************************************************************
-*   Number Plate Recognition using SVM and Neural Networks
-******************************************************************************
-*   by David Mill�n Escriv�, 5th Dec 2012
-*   http://blog.damiles.com
-******************************************************************************
-*   Ch5 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
+ *   Number Plate Recognition using SVM and Neural Networks
+ ******************************************************************************
+ *   by David Mill�n Escriv�, 5th Dec 2012
+ *   http://blog.damiles.com
+ ******************************************************************************
+ *   Ch5 of the book "Mastering OpenCV with Practical Computer Vision Projects"
+ *   Copyright Packt Publishing 2012.
+ *   http://www.packtpub.com/cool-projects-with-opencv/book
+ *****************************************************************************/
 
 // Main entry code OpenCV
 
@@ -21,25 +21,21 @@
 using namespace std;
 using namespace cv;
 
-const int numFilesChars[] = {35, 40, 42, 41, 42, 33, 30, 31, 49, 44, 30, 24, 21,
-                             20, 34, 9, 10, 3, 11, 3, 15, 4, 9, 12, 10, 21, 18, 8, 15, 7};
+const int numFilesChars[] = { 35, 40, 42, 41, 42, 33, 30, 31, 49, 44, 30, 24, 21, 20, 34, 9, 10, 3,
+    11, 3, 15, 4, 9, 12, 10, 21, 18, 8, 15, 7 };
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     cout << "OpenCV Training OCR Automatic Number Plate Recognition\n";
     cout << "\n";
 
-    char *path;
+    char* path;
 
-    //Check if user specify image to process
-    if (argc >= 1)
-    {
+    // Check if user specify image to process
+    if (argc >= 1) {
         path = argv[1];
-    }
-    else
-    {
-        cout << "Usage:\n"
-             << argv[0] << " <path to chars folders files> \n";
+    } else {
+        cout << "Usage:\n" << argv[0] << " <path to chars folders files> \n";
         return 0;
     }
 
@@ -52,11 +48,9 @@ int main(int argc, char **argv)
     vector<int> trainingLabels;
     OCR ocr;
 
-    for (int i = 0; i < OCR::numCharacters; i++)
-    {
+    for (int i = 0; i < OCR::numCharacters; i++) {
         int numFiles = numFilesChars[i];
-        for (int j = 0; j < numFiles; j++)
-        {
+        for (int j = 0; j < numFiles; j++) {
             cout << "Character " << OCR::strCharacters[i] << " file: " << j << "\n";
             stringstream ss(stringstream::in | stringstream::out);
             ss << path << OCR::strCharacters[i] << "/" << j << ".jpg";

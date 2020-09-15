@@ -136,14 +136,16 @@ vector<Plate> DetectRegions::segment(Mat input)
         Mat mask;
         mask.create(input.rows + 2, input.cols + 2, CV_8UC1);
         mask = Scalar::all(0);
-        int loDiff = 30;
-        int upDiff = 30;
-        int connectivity = 4;
-        int newMaskVal = 255;
-        int NumSeeds = 10;
+        const int loDiff = 30;
+        const int upDiff = 30;
+        const int connectivity = 4;
+        const int newMaskVal = 255;
+        const int NumSeeds = 10;
         Rect ccomp;
-        int flags
-            = connectivity + (newMaskVal << 8) + cv::FLOODFILL_FIXED_RANGE + cv::FLOODFILL_MASK_ONLY;
+        const int flags = connectivity
+            + (newMaskVal << 8)
+            + cv::FLOODFILL_FIXED_RANGE
+            + cv::FLOODFILL_MASK_ONLY;
         for (int j = 0; j < NumSeeds; j++) {
             Point seed;
             seed.x = rects[i].center.x + rand() % (int)minSize - (minSize / 2);

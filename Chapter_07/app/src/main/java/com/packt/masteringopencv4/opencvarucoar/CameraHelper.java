@@ -25,10 +25,6 @@ import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by hilab on 12/1/17.
- */
-
 public class CameraHelper {
     private static final String LOGTAG = "CameraHepler";
     public static final int REQUEST_PERMISSION_CODE = 99;
@@ -192,7 +188,7 @@ public class CameraHelper {
                 Log.e(LOGTAG, "createCameraPreviewSession: mCaptureSession is already started");
                 return;
             }
-            
+
             mImageReader = ImageReader.newInstance(mPreviewSize.getWidth(), mPreviewSize.getHeight(), ImageFormat.YUV_420_888, 2);
             mImageReader.setOnImageAvailableListener(mHandler, mBackgroundHandler);
 

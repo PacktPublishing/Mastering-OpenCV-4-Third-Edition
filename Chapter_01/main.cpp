@@ -1,28 +1,27 @@
 /*****************************************************************************
-*   Cartoonifier.cpp: Main GUI for the Cartoonifier application.
-*   Converts a real-life camera stream to look like a cartoon.
-*   This file is for a desktop or embedded Linux executable.
-******************************************************************************
-*   by Shervin Emami, 8th Aug 2016 (shervin.emami@gmail.com)
-*   http://www.shervinemami.info/
-******************************************************************************
-*   Ch1 of the book "Mastering OpenCV with Practical Computer Vision Projects", 2nd Edition.
-*   Copyright Packt Publishing 2016.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
-
+ *   Cartoonifier.cpp: Main GUI for the Cartoonifier application.
+ *   Converts a real-life camera stream to look like a cartoon.
+ *   This file is for a desktop or embedded Linux executable.
+ ******************************************************************************
+ *   by Shervin Emami, 8th Aug 2016 (shervin.emami@gmail.com)
+ *   http://www.shervinemami.info/
+ ******************************************************************************
+ *   Ch1 of the book "Mastering OpenCV with Practical Computer Vision Projects", 2nd Edition.
+ *   Copyright Packt Publishing 2016.
+ *   http://www.packtpub.com/cool-projects-with-opencv/book
+ *****************************************************************************/
 
 // Try to set the camera resolution. Note that this only works for some cameras on
 // some computers and only for some drivers, so don't rely on it to work!
 const int DEFAULT_CAMERA_WIDTH = 640;
 const int DEFAULT_CAMERA_HEIGHT = 480;
 
-const char * DEFAULT_CAMERA_NUMBER = "0";
+const char* DEFAULT_CAMERA_NUMBER = "0";
 
-const int NUM_STICK_FIGURE_ITERATIONS = 40; // Sets how long the stick figure face should be shown for skin detection.
+const int NUM_STICK_FIGURE_ITERATIONS
+    = 40; // Sets how long the stick figure face should be shown for skin detection.
 
-const char *windowName = "Cartoonifier";   // Name shown in the GUI window.
-
+const char* windowName = "Cartoonifier"; // Name shown in the GUI window.
 
 // Set to true if you want to see line drawings instead of paintings.
 auto m_sketchMode = true;
@@ -30,59 +29,59 @@ auto m_sketchMode = true;
 auto m_alienMode = false;
 // Set to true if you want an evil "bad" character instead of a "good" character.
 auto m_evilMode = false;
-// Set to true if you want to see many windows created, showing various debug info. Set to 0 otherwise.
+// Set to true if you want to see many windows created, showing various debug info. Set to 0
+// otherwise.
 auto m_debugMode = false;
 
-
-
+#include <ctype.h> // For isdigit()
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>           // For isdigit()
 
 // Include OpenCV's C++ Interface
 #include <opencv2/opencv.hpp>
 
 // Include the rest of our code!
 //#include "detectObject.h"       // Easily detect faces or eyes (using LBP or Haar Cascades).
-#include "cartoon.h"            // Cartoonify a photo.
-#include "fps_timer.hpp"          // FPS timer by Jason Saragih.
+#include "cartoon.h" // Cartoonify a photo.
+#include "fps_timer.hpp" // FPS timer by Jason Saragih.
 
 using namespace cv;
 using namespace std;
 
-int m_stickFigureIterations = 0;  // Draws a stick figure outline for where the user's face should be.
+int m_stickFigureIterations
+    = 0; // Draws a stick figure outline for where the user's face should be.
 
 #if !defined VK_ESCAPE
-    #define VK_ESCAPE 0x1B      // Escape character (27)
+#define VK_ESCAPE 0x1B // Escape character (27)
 #endif
-
-
 
 // Get access to the webcam or video source. cameraNumber should be a number
 // (eg: "0" or "1") but can also be a video file or stream URL.
-void initCamera(VideoCapture &videoCapture, char* cameraNumber)
+void initCamera(VideoCapture& videoCapture, char* cameraNumber)
 {
     // First try to access to the camera as a camera number such as 0
-    try {   // Surround the OpenCV call by a try/catch block so we can give a useful error message!
-        if ( isdigit(cameraNumber[0]) ) {
+    try { // Surround the OpenCV call by a try/catch block so we can give a useful error message!
+        if (isdigit(cameraNumber[0])) {
             videoCapture.open(atoi(cameraNumber));
         }
-    } catch (cv::Exception &e) {}
+    } catch (cv::Exception& e) {
+    }
 
-    if ( !videoCapture.isOpened() ) {
+    if (!videoCapture.isOpened()) {
         // Also try to access to the camera as a video file or URL.
-        try {   // Surround the OpenCV call by a try/catch block so we can give a useful error message!
+        try { // Surround the OpenCV call by a try/catch block so we can give a useful error
+              // message!
             videoCapture.open(cameraNumber);
-        } catch (cv::Exception &e) {}
+        } catch (cv::Exception& e) {
+        }
 
-        if ( !videoCapture.isOpened() ) {
+        if (!videoCapture.isOpened()) {
             cerr << "ERROR: Could not access the camera " << cameraNumber << " !" << endl;
             exit(1);
         }
     }
     cout << "Loaded camera " << cameraNumber << endl;
 }
-
 
 // Keypress event handler. Note that it should be a 'char' and not an 'int' to better support Linux.
 void onKeypress(char key)
@@ -112,14 +111,14 @@ void onKeypress(char key)
     }
 }
 
-
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     cout << "Cartoonifier, by Shervin Emami (www.shervinemami.info), June 2016." << endl;
     cout << "Converts real-life images to cartoon-like images." << endl;
     cout << "Compiled with OpenCV version " << CV_VERSION << endl;
     cout << "usage:   " << argv[0] << " [[camera_number] desired_width desired_height ]" << endl;
-    cout << "default: " << argv[0] << " " << DEFAULT_CAMERA_NUMBER << " " << DEFAULT_CAMERA_WIDTH << " " << DEFAULT_CAMERA_HEIGHT << endl;
+    cout << "default: " << argv[0] << " " << DEFAULT_CAMERA_NUMBER << " " << DEFAULT_CAMERA_WIDTH
+         << " " << DEFAULT_CAMERA_HEIGHT << endl;
     cout << endl;
 
     cout << "Keyboard commands (press in the GUI window):" << endl;
@@ -130,24 +129,25 @@ int main(int argc, char *argv[])
     cout << "    d:    change debug mode." << endl;
     cout << endl;
 
-    char *cameraNumber = (char*)DEFAULT_CAMERA_NUMBER;
+    char* cameraNumber = (char*)DEFAULT_CAMERA_NUMBER;
     int desiredCameraWidth = DEFAULT_CAMERA_WIDTH;
     int desiredCameraHeight = DEFAULT_CAMERA_HEIGHT;
 
-    // Allow the user to specify a camera number, since not all computers will be the same camera number.
+    // Allow the user to specify a camera number, since not all computers will be the same camera
+    // number.
     int a = 1;
     if (argc > a) {
         cameraNumber = argv[a];
-        a++;    // Next arg
+        a++; // Next arg
 
         // Allow the user to specify camera resolution.
         if (argc > a) {
             desiredCameraWidth = atoi(argv[a]);
-            a++;    // Next arg
+            a++; // Next arg
 
             if (argc > a) {
                 desiredCameraHeight = atoi(argv[a]);
-                a++;    // Next arg
+                a++; // Next arg
             }
         }
     }
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
         // Grab the next camera frame. Note that you can't modify camera frames.
         Mat cameraFrame;
         camera >> cameraFrame;
-        if( cameraFrame.empty() ) {
+        if (cameraFrame.empty()) {
             cerr << "ERROR: Couldn't grab the next camera frame." << endl;
             exit(1);
         }
@@ -188,9 +188,11 @@ int main(int argc, char *argv[])
             debugType = 2;
 
         // Run the cartoonifier filter using the selected mode.
-        cartoonifyImage(cameraFrame, displayedFrame, m_sketchMode, m_alienMode, m_evilMode, debugType);
+        cartoonifyImage(
+            cameraFrame, displayedFrame, m_sketchMode, m_alienMode, m_evilMode, debugType);
 
-        // Show a stick-figure outline of a face for a short duration, so the user knows where to put their face.
+        // Show a stick-figure outline of a face for a short duration, so the user knows where to
+        // put their face.
         if (m_stickFigureIterations > 0) {
             drawFaceStickFigure(displayedFrame);
             m_stickFigureIterations--;
@@ -201,18 +203,19 @@ int main(int argc, char *argv[])
         if (timer.fnum == 0) {
             double fps;
             if (timer.fps < 1.0f)
-                fps = timer.fps;                // FPS is a fraction
+                fps = timer.fps; // FPS is a fraction
             else
-                fps = (int)(timer.fps + 0.5f);  // FPS is a large number
+                fps = (int)(timer.fps + 0.5f); // FPS is a large number
             cout << fps << " FPS" << endl;
         }
 
         imshow(windowName, displayedFrame);
 
-        // IMPORTANT: Wait for atleast 20 milliseconds, so that the image can be displayed on the screen!
-        // Also checks if a key was pressed in the GUI window. Note that it should be a "char" to support Linux.
-        auto keypress = waitKey(20);  // This is needed if you want to see anything!
-        if (keypress == VK_ESCAPE) {   // Escape Key
+        // IMPORTANT: Wait for atleast 20 milliseconds, so that the image can be displayed on the
+        // screen! Also checks if a key was pressed in the GUI window. Note that it should be a
+        // "char" to support Linux.
+        auto keypress = waitKey(20); // This is needed if you want to see anything!
+        if (keypress == VK_ESCAPE) { // Escape Key
             // Quit the program!
             break;
         }
@@ -221,7 +224,7 @@ int main(int argc, char *argv[])
             onKeypress(keypress);
         }
 
-    }//end while
+    } // end while
 
     return EXIT_SUCCESS;
 }

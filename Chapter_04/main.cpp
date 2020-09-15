@@ -1,13 +1,13 @@
 /*****************************************************************************
-*   Number Plate Recognition using SVM and Neural Networks
-******************************************************************************
-*   by David Mill�n Escriv�, 5th Dec 2012
-*   http://blog.damiles.com
-******************************************************************************
-*   Ch5 of the book "Mastering OpenCV with Practical Computer Vision Projects"
-*   Copyright Packt Publishing 2012.
-*   http://www.packtpub.com/cool-projects-with-opencv/book
-*****************************************************************************/
+ *   Number Plate Recognition using SVM and Neural Networks
+ ******************************************************************************
+ *   by David Mill�n Escriv�, 5th Dec 2012
+ *   http://blog.damiles.com
+ ******************************************************************************
+ *   Ch5 of the book "Mastering OpenCV with Practical Computer Vision Projects"
+ *   Copyright Packt Publishing 2012.
+ *   http://www.packtpub.com/cool-projects-with-opencv/book
+ *****************************************************************************/
 
 // Main entry code OpenCV
 
@@ -34,55 +34,46 @@ string getFilename(string s)
 #endif
 
     size_t i = s.rfind(sep, s.length());
-    if (i != string::npos)
-    {
+    if (i != string::npos) {
         string fn = (s.substr(i + 1, s.length() - i));
         size_t j = fn.rfind(sepExt, fn.length());
-        if (i != string::npos)
-        {
+        if (i != string::npos) {
             return fn.substr(0, j);
-        }
-        else
-        {
+        } else {
             return fn;
         }
-    }
-    else
-    {
+    } else {
         return "";
     }
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     cout << "OpenCV Automatic Number Plate Recognition\n";
-    char *filename;
+    char* filename;
     Mat input_image;
 
-    //Check if user specify image to process
-    if (argc >= 2)
-    {
+    // Check if user specify image to process
+    if (argc >= 2) {
         filename = argv[1];
-        //load image  in gray level
+        // load image  in gray level
         input_image = imread(filename, 1);
-    }
-    else
-    {
+    } else {
         printf("Use:\n\t%s image\n", argv[0]);
         return 0;
     }
 
     string filename_whithoutExt = getFilename(filename);
     cout << "working with file: " << filename_whithoutExt << "\n";
-    //Detect posibles plate regions
+    // Detect posibles plate regions
     DetectRegions detectRegions;
     detectRegions.setFilename(filename_whithoutExt);
     detectRegions.saveRegions = false;
     detectRegions.showSteps = false;
     vector<Plate> posible_regions = detectRegions.run(input_image);
 
-    //SVM for each plate region to get valid car plates
-    //Read file storage.
+    // SVM for each plate region to get valid car plates
+    // Read file storage.
     FileStorage fs;
     fs.open("SVM.xml", FileStorage::READ);
     Mat SVM_TrainingData;
@@ -105,10 +96,9 @@ int main(int argc, char **argv)
 
     svmClassifier->train(tdata);
 
-    //For each possible plate, classify with svm if it's a plate or no
+    // For each possible plate, classify with svm if it's a plate or no
     vector<Plate> plates;
-    for (int i = 0; i < posible_regions.size(); i++)
-    {
+    for (int i = 0; i < posible_regions.size(); i++) {
         Mat img = posible_regions[i].plateImg;
         Mat p = img.reshape(1, 1);
         p.convertTo(p, CV_32FC1);
@@ -119,13 +109,12 @@ int main(int argc, char **argv)
     }
 
     cout << "Num plates detected: " << plates.size() << "\n";
-    //For each plate detected, recognize it with OCR
+    // For each plate detected, recognize it with OCR
     OCR ocr("OCR.xml");
     ocr.saveSegments = true;
     ocr.DEBUG = false;
     ocr.filename = filename_whithoutExt;
-    for (int i = 0; i < plates.size(); i++)
-    {
+    for (int i = 0; i < plates.size(); i++) {
         Plate plate = plates[i];
 
         string plateNumber = ocr.run(&plate);
@@ -134,17 +123,16 @@ int main(int argc, char **argv)
         cout << "License plate number: " << licensePlate << "\n";
         cout << "================================================\n";
         rectangle(input_image, plate.position, Scalar(0, 0, 200));
-        putText(input_image, licensePlate, Point(plate.position.x, plate.position.y), cv::FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 200), 2);
-        if (ocr.DEBUG)
-        {
+        putText(input_image, licensePlate, Point(plate.position.x, plate.position.y),
+            cv::FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 0, 200), 2);
+        if (ocr.DEBUG) {
             imshow("Plate Detected seg", plate.plateImg);
             cv::waitKey(0);
         }
     }
     namedWindow("Plate Detected", WINDOW_NORMAL);
     imshow("Plate Detected", input_image);
-    for (;;)
-    {
+    for (;;) {
         int c;
         c = cv::waitKey(10);
         if ((char)c == 27)

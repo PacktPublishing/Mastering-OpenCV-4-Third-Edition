@@ -11,10 +11,6 @@ import android.renderscript.Type;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by hilab on 12/1/17.
- */
-
 public class ImageHelper {
     private RenderScript rs;
     private ScriptIntrinsicYuvToRGB yuvToRgbIntrinsic;
