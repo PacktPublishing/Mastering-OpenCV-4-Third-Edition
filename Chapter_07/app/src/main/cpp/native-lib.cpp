@@ -124,7 +124,7 @@ Java_com_packt_masteringopencv4_opencvarucoar_CalibrationActivity_addCalibration
         imwrite(buf, grayImage);
 
         Mat out;
-        cvtColor(grayImage, out, CV_GRAY2BGR);
+        cvtColor(grayImage, out, cv::COLOR_GRAY2BGR);
         aruco::drawDetectedMarkers(out, corners, ids);
         sprintf(buf, "/sdcard/calib_cap_markers%03d.png", allIds.size());
         imwrite(buf, out);
